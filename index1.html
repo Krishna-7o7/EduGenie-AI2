@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>StudyMate — Local PDF Q&A (Demo)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+    <header>
+      <div>
+        <h1>StudyMate — Local PDF Q&A (Frontend Demo)</h1>
+        <p class="lead">
+          Upload PDFs, extract text client-side, run a semantic retrieval demo,
+          and (optionally) send retrieved context to your backend for grounded answers.
+        </p>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div>
+        <div class="card">
+          <label>Upload PDFs (multiple allowed)</label>
+          <input id="fileInput" type="file" accept="application/pdf" multiple />
+          <div class="small">PDFs stay on your computer; no uploads.</div>
+
+          <hr class="divider" />
+
+          <label>Chunk size (words)</label>
+          <input id="chunkSize" type="number" value="400" min="50" max="2000" />
+
+          <div class="buttons">
+            <button id="processBtn">Extract & Build Index</button>
+            <button id="clearBtn">Clear</button>
+          </div>
+
+          <div class="meta" id="statsArea">No documents loaded.</div>
+
+          <label>Document Chunks</label>
+          <div class="list" id="chunksList"></div>
+        </div>
+
+        <div class="card">
+          <label>LLM Backend (optional)</label>
+          <input id="backendUrl" type="text" placeholder="https://your-backend.example/api/answer" />
+          <div class="small">
+            Provide a backend endpoint that accepts JSON {question, contexts[]} for grounded answers.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="topbar">
+            <input id="question" placeholder="Ask a question..." />
+            <button id="askBtn">Ask</button>
+          </div>
+
+          <div class="results">
+            <div class="meta">Top retrieved contexts:</div>
+            <div id="retrieved"></div>
+            <hr class="divider" />
+            <div class="meta">Generated answer:</div>
+            <div id="answer" class="context">No answer yet — ask a question.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="notice">
+            💡 <strong>Note:</strong> This is a frontend-only demo.
+            Connect a Flask or FastAPI backend with Granite or Mistral for real grounded answers.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
